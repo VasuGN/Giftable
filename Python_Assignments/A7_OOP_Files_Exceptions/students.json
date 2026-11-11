@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Vasu",
+    "subject": "Python",
+    "marks": 85
+  },
+  {
+    "name": "Rahul",
+    "subject": "Javascript",
+    "marks": 72
+  },
+  {
+    "name": "Pramod",
+    "subject": "Java",
+    "marks": 91
+  },
+  {
+    "name": "Sagar",
+    "subject": "Python",
+    "marks": 68
+  },
+  {
+    "name": "Puneeth",
+    "subject": "Java",
+    "marks": 78
+  }
+]

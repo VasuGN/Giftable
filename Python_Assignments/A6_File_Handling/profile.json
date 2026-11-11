@@ -1,0 +1,10 @@
+{
+    "name": "Vasu G N",
+    "city": "Bangalore",
+    "skills": [
+        "Python",
+        "Node.js",
+        "FastAPI"
+    ],
+    "course": "Agentic AI"
+}

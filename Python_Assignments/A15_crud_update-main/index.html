@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Update</title>
+</head>
+<body>
+
+    <h1>Student Update Management</h1>
+
+    <h2>Update Student</h2>
+
+    <form id="studentForm">
+        <input type="hidden" id="studentId">
+
+        <input type="text" id="name" placeholder="Student Name" required>
+        <input type="number" id="age" placeholder="Age" required>
+        <input type="text" id="course" placeholder="Course" required>
+
+        <button type="submit">Update Student</button>
+    </form>
+
+    <h2>Student List</h2>
+
+    <ul id="studentList"></ul>
+
+    <script>
+        const form = document.getElementById("studentForm");
+
+        async function loadStudents() {
+            const response = await fetch("/students");
+            const students = await response.json();
+
+            const studentList = document.getElementById("studentList");
+            studentList.innerHTML = "";
+
+            students.forEach(function(student) {
+                const li = document.createElement("li");
+
+                li.textContent =
+                    student.name + " - " +
+                    student.age + " - " +
+                    student.course + " ";
+
+                const editButton = document.createElement("button");
+                editButton.textContent = "Edit";
+
+                editButton.onclick = function() {
+                    document.getElementById("studentId").value = student.id;
+                    document.getElementById("name").value = student.name;
+                    document.getElementById("age").value = student.age;
+                    document.getElementById("course").value = student.course;
+                };
+
+                li.appendChild(editButton);
+                studentList.appendChild(li);
+            });
+        }
+
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const studentId = document.getElementById("studentId").value;
+
+            if (!studentId) {
+                alert("Please select a student to edit");
+                return;
+            }
+
+            const student = {
+                name: document.getElementById("name").value,
+                age: Number(document.getElementById("age").value),
+                course: document.getElementById("course").value
+            };
+
+            const response = await fetch(`/students/${studentId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(student)
+            });
+
+            if (response.ok) {
+                alert("Student updated successfully");
+                form.reset();
+                loadStudents();
+            }
+        });
+
+        loadStudents();
+    </script>
+
+</body>
+</html>
